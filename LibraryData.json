@@ -1,0 +1,126 @@
+{
+  "Books": [
+    {
+      "Id": 1,
+      "Title": "Harry Potter",
+      "Author": "JK Rowling",
+      "Genre": "Fantasy",
+      "YearOfPublication": 1997,
+      "ISBN": 111,
+      "Reviews": []
+    },
+    {
+      "Id": 2,
+      "Title": "Pippi Longstocking",
+      "Author": "Astrid Lindgren",
+      "Genre": "Children's book",
+      "YearOfPublication": 1948,
+      "ISBN": 222,
+      "Reviews": []
+    },
+    {
+      "Id": 3,
+      "Title": "Trust",
+      "Author": "Hernan Diaz",
+      "Genre": "Romantic",
+      "YearOfPublication": 2022,
+      "ISBN": 333,
+      "Reviews": []
+    },
+    {
+      "Id": 4,
+      "Title": "Shatter Me",
+      "Author": "Tahereh Mafi",
+      "Genre": "Fantasy",
+      "YearOfPublication": 2018,
+      "ISBN": 444,
+      "Reviews": []
+    },
+    {
+      "Id": 5,
+      "Title": "Once You're Mine",
+      "Author": "Morgan Bridges",
+      "Genre": "Romantic",
+      "YearOfPublication": 2024,
+      "ISBN": 555,
+      "Reviews": []
+    },
+    {
+      "Id": 6,
+      "Title": "The Very Hungry Caterpillar",
+      "Author": "Eric Carle",
+      "Genre": "Children's book",
+      "YearOfPublication": 1997,
+      "ISBN": 666,
+      "Reviews": []
+    },
+    {
+      "Id": 7,
+      "Title": "Time Uncovered",
+      "Author": "William Newell",
+      "Genre": "Romantic",
+      "YearOfPublication": 2015,
+      "ISBN": 777,
+      "Reviews": []
+    },
+    {
+      "Id": 8,
+      "Title": "The Secret",
+      "Author": "Rhonda Byrne",
+      "Genre": "Psychology",
+      "YearOfPublication": 2006,
+      "ISBN": 888,
+      "Reviews": []
+    }
+  ],
+  "Authors": [
+    {
+      "Id": 1,
+      "Name": "JK Rowling",
+      "Nationality": "British"
+
+    },
+    {
+      "Id": 2,
+      "Name": "Astrid Lindgren",
+      "Nationality": "Swedish"
+
+    },
+    {
+      "Id": 3,
+      "Name": "Hernan Diaz",
+      "Nationality": "American"
+
+    },
+    {
+      "Id": 4,
+      "Name": "Tahereh Mafi",
+      "Nationality": "American"
+
+    },
+    {
+      "Id": 5,
+      "Name": "Morgan Bridges",
+      "Nationality": "American"
+
+    },
+    {
+      "Id": 6,
+      "Name": "Eric Carle",
+      "Nationality": "American"
+
+    },
+    {
+      "Id": 7,
+      "Name": "William Newell",
+      "Nationality": "British"
+
+    },
+    {
+      "Id": 8,
+      "Name": "Rhonda Byrne",
+      "Nationality": "Australian"
+
+    }
+  ]
+}

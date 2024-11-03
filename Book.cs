@@ -26,7 +26,7 @@
         {
             if (Reviews.Count == 0)
             {
-                return 0;
+
             }
             return Reviews.Average();
         }

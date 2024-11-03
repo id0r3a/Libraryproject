@@ -36,7 +36,7 @@ namespace Inlämning_3
                     Console.WriteLine("Press 8 to search and filter books");
                     Console.WriteLine("Press 9 to sort books");
                     Console.WriteLine("Press 10 to list all books and authors");
-                    Console.WriteLine("Press 11 to save data & exit!");
+                    Console.WriteLine("Press 11 to close the program!");
                     
                     string userChoice = Console.ReadLine()!;
                     switch (userChoice)
@@ -135,8 +135,7 @@ namespace Inlämning_3
                         
 
                         case "11":
-                            library.SaveData(DataJSONfilePath, myDataBase);
-                            Console.WriteLine("Data saved, program closes");
+                            Console.WriteLine("Program closes");
                             keepRunning = false;
                             break;
 
@@ -149,127 +148,3 @@ namespace Inlämning_3
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    //    {
-                    //        
-                    //    }
-
-                    //}
-                    ////Filtrera böckerna enligt genre
-                    //var genres = allBooks.Select(book => book.Genre).Distinct();
-
-                    //foreach (var genre in genres)
-                    //{
-                    //    var booksByGenre = allBooks.Where(book => book.Genre == genre).ToList();
-                    //    Console.WriteLine($"Genre: {genre}");
-                    //    foreach (var book in booksByGenre)
-                    //    {
-                    //        Console.WriteLine($" - {book.Title} by {book.Author}");
-                    //    }
-                    //}
-                    ////Filtrera böckerna enligt författare
-                    //var authors = allBooks.Select(book => book.Author).Distinct();
-
-                    //foreach (var author in authors)
-                    //{
-                    //    var booksByAuthor = allBooks.Where(book => book.Author == author).ToList();
-                    //    Console.WriteLine($"Author: {author}");
-                    //    foreach (var book in booksByAuthor)
-                    //    {
-                    //        Console.WriteLine(book.Title);
-                    //    }
-                    //}
-                    ////Fiktrera böckerna enligt publiceringsår
-                    //var years = allBooks.Select(book => book.YearOfPublication).Distinct();
-
-                    //foreach (var year in years)
-                    //{
-                    //    var booksByYear = allBooks.Where(book => book.YearOfPublication == year).ToList();
-                    //    Console.WriteLine($"Year: {year}");
-                    //    foreach (var book in booksByYear)
-                    //    {
-                    //        Console.WriteLine($" - {book.Title} by {book.Author}");
-                    //    }
-                    //}
-                    ////Sortera böcker efter publiceringsår
-                    //var booksSortedByYear = allBooks.OrderBy(book => book.YearOfPublication).ToList();
-
-                    //Console.WriteLine("Books sorted by publication year:");
-                    //foreach (var book in booksSortedByYear)
-                    //{
-                    //    Console.WriteLine($"{book.YearOfPublication}: {book.Title} by {book.Author}");
-                    //}
-                    ////Sortera böcker efter titel
-                    //var booksSortedByTitle = allBooks.OrderBy(book => book.Title).ToList();
-
-                    //Console.WriteLine("Books sorted by title:");
-                    //foreach (var book in booksSortedByTitle)
-                    //{
-                    //    Console.WriteLine($"{book.Title} by {book.Author}");
-                    //}
-
-                    //// Hitta och ta bort bok
-                    //int bookIdToDelete = 1; // Ange ID för den bok som ska tas bort
-                    //Book bookToDelete = allBooks.FirstOrDefault(book => book.Id == bookIdToDelete)!;
-
-                    //if (bookToDelete != null)
-                    //{
-                    //    allBooks.Remove(bookToDelete);
-                    //    Console.WriteLine("Book removed successfully.");
-                    //}
-                    //else
-                    //{
-                    //    Console.WriteLine("Book not found.");
-                    //}
-
-                    //// Hitta och ta bort författaren
-                    //int authorIdToDelete = 1; // Ange ID för den författare som ska tas bort
-                    //Author authorToDelete = allAuthors.FirstOrDefault(author => author.Id == authorIdToDelete)!;
-
-                    //if (authorToDelete != null)
-                    //{
-                    //    allAuthors.Remove(authorToDelete);
-                    //    Console.WriteLine("Author removed successfully.");
-                    //}
-                    //else
-                    //{
-                    //    Console.WriteLine("Author not found.");
-                    //}
-
-                    ////Lägga till en bok
-
-                    //allBooks.Add(new Book(10, "OOP", "Nemo", "Educational", 2023, 456));
-
-                    //// Spara den uppdaterade listan tillbaka till JSON-filen
-                    //myDataBase.AllBooksFromDB = allBooks;
-                    //string updatedDataBase = JsonSerializer.Serialize(myDataBase, new JsonSerializerOptions { WriteIndented = true });
-                    //File.WriteAllText(DataJSONfilePath, updatedDataBase);
-
-                    ////Att lista alla böcker och författare.
-
-
-                    //Console.WriteLine("\nAuthors:");
-                    //foreach (var author in allAuthors)
-                    //{
-                    //    Console.WriteLine($"{author.Id}: {author.Name} ({author.Nationality})");
-                    //}
-
-
-    

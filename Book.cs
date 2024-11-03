@@ -24,12 +24,9 @@
         }
         public double GetAverageRating()
         {
-            if (Reviews.Count == 0)
-            {
+            return Reviews.Count == 0 ? 0 : Reviews.Average();
 
-            }
-            return Reviews.Average();
+
         }
-
     }
 }

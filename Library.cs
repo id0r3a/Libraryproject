@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace Inlämning_3
 {
@@ -31,8 +32,8 @@ namespace Inlämning_3
 
             Book newBok = new Book(bookToAddNewID, bookToAddNewTitle, bookToAddNewAuthor, bookToAddNewGenre, bookToAddNewISBN, bookToAddNewISBN);
             Books.Add(newBok);
-            Console.WriteLine($"{bookToAddNewTitle} added to library´s books");
-            Pausa();
+            Console.WriteLine($"{bookToAddNewTitle} added to book´s list");
+
         }
 
         // Lägg till en ny författare
@@ -49,7 +50,7 @@ namespace Inlämning_3
             Author newAuthor = new Author(authorToAddId, authorToAddName, authorToAddNationality);
             Authors.Add(newAuthor);
             Console.WriteLine($"{authorToAddName} added to librarys´ authors");
-            Pausa();
+     
         }
 
         // Uppdatera bok
@@ -71,6 +72,11 @@ namespace Inlämning_3
                 Console.Write("Enter new ISBN: ");
                 bookToUpdate.ISBN = int.Parse(Console.ReadLine()!);
                 Console.WriteLine("Book details updated successfully.");
+
+                // Serialize the updated list back to JSON
+                string updatedJsonString = JsonSerializer.Serialize(Books, new JsonSerializerOptions { WriteIndented = true });
+                // Write the updated JSON to the file
+                File.WriteAllText("LibraryData.json", updatedJsonString);
             }
             else
             {
@@ -92,6 +98,11 @@ namespace Inlämning_3
                     Console.Write("Enter new nationality: ");
                     authorToUpdate.Nationality = Console.ReadLine()!;
                     Console.WriteLine("Author details updated successfully.");
+
+                    // Serialize the updated list back to JSON
+                    string updatedJsonString = JsonSerializer.Serialize(Authors, new JsonSerializerOptions { WriteIndented = true });
+                    // Write the updated JSON to the file
+                    File.WriteAllText("LibraryData.json", updatedJsonString);
                 }
                 else
                 {
@@ -106,34 +117,80 @@ namespace Inlämning_3
 
 
         // Hitta och ta bort bok
-        public void DeleteBook()
+        public void RemoveBook()
         {
-            int bookIdToDelete = 1;
-            Book bookToDelete = Books.FirstOrDefault(book => book.Id == bookIdToDelete)!;
-            if (bookToDelete != null)
+            Console.Write("Enter the title of the book you want to remove: ");
+            string booksTitleToRemove = Console.ReadLine()!;
+
+            try
             {
-                Books.Remove(bookToDelete);
-                Console.WriteLine("Book removed successfully.");
+                // Read the existing JSON file
+                string jsonString = File.ReadAllText("LibraryData.json");
+
+                // Deserialize the JSON data
+                var booksList = JsonSerializer.Deserialize<Dictionary<string, List<Book>>>(jsonString);
+
+                // Find and remove the book
+                Book bookToRemove = booksList["Books"]
+                    .FirstOrDefault(book => book.Title.Equals(booksTitleToRemove, StringComparison.OrdinalIgnoreCase))!;
+
+                if (bookToRemove != null)
+                {
+                    booksList["Books"].Remove(bookToRemove);
+                    Console.WriteLine($"Book with Title {booksTitleToRemove} removed successfully.");
+
+                    // Serialize the updated list back to JSON
+                    string updatedJsonString = JsonSerializer.Serialize(booksList, new JsonSerializerOptions { WriteIndented = true });
+
+                    // Write the updated JSON to the file
+                    File.WriteAllText("LibraryData.json", updatedJsonString);
+                }
+                else
+                {
+                    Console.WriteLine("Book not found.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Book not found.");
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
 
         // Hitta och ta bort författare
-        public void DeleteAuthor()
+        public void RemoveAuthor()
         {
-            int authorIdToDelete = 1;
-            Author authorToDelete = Authors.FirstOrDefault(author => author.Id == authorIdToDelete)!;
-            if (authorToDelete != null)
+            Console.Write("Enter the Name of the author you want to delete: ");
+            string authorsNameToRemove = Console.ReadLine()!;
+
+            try
             {
-                Authors.Remove(authorToDelete);
-                Console.WriteLine("Author removed successfully.");
+                // Läs in den befintliga JSON-filen
+                string jsonString = File.ReadAllText("LibraryData.json");
+
+                // Avserialisera JSON-data
+                var myDataBase = JsonSerializer.Deserialize<MyDataBase>(jsonString);
+
+                // Hitta och ta bort författaren
+                Author authorToRemove = myDataBase.AllAuthorsFromDB.FirstOrDefault(author => author.Name.Equals(authorsNameToRemove, StringComparison.OrdinalIgnoreCase))!;
+                if (authorToRemove != null)
+                {
+                    myDataBase.AllAuthorsFromDB.Remove(authorToRemove);
+                    Console.WriteLine($"Author {authorsNameToRemove} removed successfully.");
+
+                    // Serialisera den uppdaterade listan tillbaka till JSON
+                    string updatedJsonString = JsonSerializer.Serialize(myDataBase, new JsonSerializerOptions { WriteIndented = true });
+
+                    // Skriv den uppdaterade JSON till filen
+                    File.WriteAllText("LibraryData.json", updatedJsonString);
+                }
+                else
+                {
+                    Console.WriteLine("Author not found.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Author not found.");
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
 
@@ -143,15 +200,18 @@ namespace Inlämning_3
             Console.WriteLine("\nBooks:");
             foreach (var book in Books)
             {
-                Console.WriteLine($"{book.Id}: {book.Title} by {book.Author} ({book.Genre}, {book.YearOfPublication}) ISBN: {book.ISBN}");
+                var averageRating = book.Reviews.Any() ? book.Reviews.Average() : 0;
+
+                Console.WriteLine($"{book.Id}: {book.Title} by {book.Author}, {book.Genre}, {book.YearOfPublication} ISBN: {book.ISBN}, Average Rating: {(book.Reviews.Any() ? averageRating.ToString("0.00") : "No Rates")}");
             }
 
             Console.WriteLine("\nAuthors:");
             foreach (var author in Authors)
             {
-                Console.WriteLine($"{author.Id}: {author.Name} ({author.Nationality})");
+                Console.WriteLine($"Id:{author.Id}: {author.Name} ({author.Nationality})");
             }
         }
+
         //Filtrera böcker
         public void FilterBooksByGenre()
         {
@@ -166,6 +226,7 @@ namespace Inlämning_3
                 }
             }
         }
+
         //Filtrera böcker enligt författare
         public void FilterBooksByAuthor()
         {
@@ -180,13 +241,15 @@ namespace Inlämning_3
                 }
             }
         }
+
         //Filtrera böcker enligt publiceringsår
         public void FilterBooksByPublicationYear()
         {
-            var years = Books.Select(book => book.YearOfPublication).Distinct();
+            var sortedBooks = Books.OrderBy(book => book.YearOfPublication).ToList();
+            var years = sortedBooks.Select(book => book.YearOfPublication).Distinct();
             foreach (var year in years)
             {
-                var booksByYear = Books.Where(book => book.YearOfPublication == year).ToList();
+                var booksByYear = sortedBooks.Where(book => book.YearOfPublication == year).ToList();
                 Console.WriteLine($"Year: {year}");
                 foreach (var book in booksByYear)
                 {
@@ -194,6 +257,7 @@ namespace Inlämning_3
                 }
             }
         }
+
         //Sortera böcker efter publiceringsår
         public void SortBooksByPublicationYear()
         {
@@ -215,8 +279,31 @@ namespace Inlämning_3
             }
         }
 
-        //Recension
+        //Metod för att lägga till betyg till en bok
+        public void AddRatingToBook()
+        {
+            Console.Write("Enter the title of the book you want to rate: ");
+            string bookTitle = Console.ReadLine()!;
 
+            var bookToRate = Books.FirstOrDefault(book => book.Title.Equals(bookTitle, StringComparison.OrdinalIgnoreCase));
+            if (bookToRate != null)
+            {
+                Console.Write("Enter your rating (1-5): ");
+                if (int.TryParse(Console.ReadLine(), out int rating) && rating >= 1 && rating <= 5)
+                {
+                    bookToRate.Reviews.Add(rating);
+                    Console.WriteLine($"Rating added successfully. New average rating: {bookToRate.GetAverageRating():0.00}");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid rating. Rating range is between 1-5.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Book not found.");
+            }
+        }
 
         //spara data
         public void SaveData(string dataJSONfilPath, MyDataBase myDataBase)
@@ -225,10 +312,9 @@ namespace Inlämning_3
 
             File.WriteAllText(dataJSONfilPath, updatedDataBase);
         }
-        
         public void Pausa()
         {
-            Console.WriteLine("Press any key for MENU");
+            Console.WriteLine("Press any key to go back to MENU");
             Console.ReadKey();
             Console.Clear();
         }

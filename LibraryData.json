@@ -13,7 +13,7 @@
       "Id": 2,
       "Title": "Pippi Longstocking",
       "Author": "Astrid Lindgren",
-      "Genre": "Children's book",
+      "Genre": "Childrens book",
       "YearOfPublication": 1948,
       "ISBN": 222,
       "Reviews": []
@@ -49,7 +49,7 @@
       "Id": 6,
       "Title": "The Very Hungry Caterpillar",
       "Author": "Eric Carle",
-      "Genre": "Children's book",
+      "Genre": "Childrens book",
       "YearOfPublication": 1997,
       "ISBN": 666,
       "Reviews": []

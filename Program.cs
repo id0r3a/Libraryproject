@@ -26,47 +26,59 @@ namespace Inlämning_3
                 {
                     Console.WriteLine("Welcome to Dorsas Library!");
                     Console.WriteLine("Please choose an option:");
-                    Console.WriteLine("Press (1) to add new book.");
-                    Console.WriteLine("Press (2) to add a new author.");
-                    Console.WriteLine("Press (3) to update book details.");
-                    Console.WriteLine("Press (4) to update author details.");
-                    Console.WriteLine("Press (5) to delete book.");
-                    Console.WriteLine("Press (6) to delete author.");
-                    Console.WriteLine("Press (7) to list all books and authors");
-                    Console.WriteLine("Press (8) to search and filter books");
-                    Console.WriteLine("Press (9) to sort books");
-                    Console.WriteLine("Press (10) to exit and save data");
+                    Console.WriteLine("Press 1 to add new book.");
+                    Console.WriteLine("Press 2 to add a new author.");
+                    Console.WriteLine("Press 3 to update book details.");
+                    Console.WriteLine("Press 4 to update author details.");
+                    Console.WriteLine("Press 5 to delete book.");
+                    Console.WriteLine("Press 6 to delete author.");
+                    Console.WriteLine("Press 7 to rate a book");
+                    Console.WriteLine("Press 8 to search and filter books");
+                    Console.WriteLine("Press 9 to sort books");
+                    Console.WriteLine("Press 10 to list all books and authors");
+                    Console.WriteLine("Press 11 to save data & exit!");
                     
                     string userChoice = Console.ReadLine()!;
                     switch (userChoice)
                     {
                         case "1":
                             library.AddNewBook();
-                            Library.SaveData(dataJSONfilPath, myDataBase);
+                            library.SaveData(DataJSONfilePath, myDataBase);
+                            library.Pausa();
                             break;
 
                         case "2":
                             library.AddNewAuthor();
+                            library.SaveData(DataJSONfilePath, myDataBase);
+                            library.Pausa();
                             break;
 
                         case "3":
                             library.UpdateBookDetails();
+                            library.SaveData(DataJSONfilePath, myDataBase);
+                            library.Pausa();
                             break;
 
                         case "4":
                             library.UpdateAuthorDetails();
+                            library.SaveData(DataJSONfilePath, myDataBase);
+                            library.Pausa();
                             break;
 
                         case "5":
-                            library.DeleteBook();
+                            library.RemoveBook();
+                            library.Pausa();
                             break;
 
                         case "6":
-                            library.DeleteAuthor();
+                            library.RemoveAuthor();
+                            library.Pausa();
                             break;
 
                         case "7":
-                            library.ListOutAllBooksAndAuthors();
+                            library.AddRatingToBook();
+                            library.SaveData(DataJSONfilePath, myDataBase);
+                            library.Pausa();
                             break;
 
                         case "8":
@@ -80,7 +92,6 @@ namespace Inlämning_3
                             {
                                 case "1":
                                     library.FilterBooksByGenre();
-                                    library.SaveData(DataJSONfilePath, myDataBase);
                                     break;
                                 case "2":
                                     library.FilterBooksByAuthor();
@@ -90,8 +101,11 @@ namespace Inlämning_3
                                     break;
                                 default:
                                     Console.WriteLine("Invalid choice. Please enter a number between 1 and 3.");
+                                    library.SaveData(DataJSONfilePath, myDataBase);
                                     break;
+
                             }
+                            library.Pausa();
                             break;
 
                         case "9":
@@ -107,12 +121,22 @@ namespace Inlämning_3
                                     break;
                                 case "2":
                                     library.SortBooksByTitle();
+                                    library.SaveData(DataJSONfilePath, myDataBase);
                                     break;
                             }
+                            library.Pausa();
                             break;
 
                         case "10":
-                            Console.WriteLine("Exit");
+                            library.ListOutAllBooksAndAuthors();
+                            library.SaveData(DataJSONfilePath, myDataBase);
+                            library.Pausa();
+                            break;
+                        
+
+                        case "11":
+                            library.SaveData(DataJSONfilePath, myDataBase);
+                            Console.WriteLine("Data saved, program closes");
                             keepRunning = false;
                             break;
 

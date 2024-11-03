@@ -25,13 +25,14 @@ namespace Inlämning_3
                 while (keepRunning)
                 {
                     Console.WriteLine("Welcome to Dorsas Library!");
+                    Console.WriteLine("..........................");
                     Console.WriteLine("Please choose an option:");
-                    Console.WriteLine("Press 1 to add new book.");
-                    Console.WriteLine("Press 2 to add a new author.");
-                    Console.WriteLine("Press 3 to update book details.");
-                    Console.WriteLine("Press 4 to update author details.");
-                    Console.WriteLine("Press 5 to delete book.");
-                    Console.WriteLine("Press 6 to delete author.");
+                    Console.WriteLine("Press 1 to add new book");
+                    Console.WriteLine("Press 2 to add a new author");
+                    Console.WriteLine("Press 3 to update book details");
+                    Console.WriteLine("Press 4 to update author details");
+                    Console.WriteLine("Press 5 to delete book");
+                    Console.WriteLine("Press 6 to delete author");
                     Console.WriteLine("Press 7 to rate a book");
                     Console.WriteLine("Press 8 to search and filter books");
                     Console.WriteLine("Press 9 to sort books");

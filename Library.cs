@@ -116,29 +116,14 @@ namespace Inlämning_3
 
             try
             {
-                // Läs in den befintliga JSON-filen
-                string jsonString = File.ReadAllText("LibraryData.json");
-
-                // Avserialisera JSON-data
-                var myDataBase = JsonSerializer.Deserialize<MyDataBase>(jsonString);
-
                 // Hitta och ta bort boken
-                Book bookToRemove = myDataBase.AllBooksFromDB
-                    .FirstOrDefault(book => book.Title.Equals(booksTitleToRemove, StringComparison.OrdinalIgnoreCase))!;
+                Book bookToRemove = Books.FirstOrDefault(book => book.Title.Equals(booksTitleToRemove, StringComparison.OrdinalIgnoreCase))!;
 
                 if (bookToRemove != null)
                 {
-                    myDataBase.AllBooksFromDB.Remove(bookToRemove);
+                    Books.Remove(bookToRemove);
                     Console.WriteLine($"Book with Title {booksTitleToRemove} removed successfully.");
 
-                    // Serialisera den uppdaterade listan tillbaka till JSON
-                    string updatedJsonString = JsonSerializer.Serialize(myDataBase, new JsonSerializerOptions { WriteIndented = true });
-
-                    // Skriv den uppdaterade JSON till filen
-                    File.WriteAllText("LibraryData.json", updatedJsonString);
-
-                    // Uppdatera interna listor
-                    Books = myDataBase.AllBooksFromDB;
                 }
                 else
                 {
@@ -159,28 +144,14 @@ namespace Inlämning_3
 
             try
             {
-                // Läs in den befintliga JSON-filen
-                string jsonString = File.ReadAllText("LibraryData.json");
-
-                // Avserialisera JSON-data
-                var myDataBase = JsonSerializer.Deserialize<MyDataBase>(jsonString);
-
                 // Hitta och ta bort författaren
-                Author authorToRemove = myDataBase.AllAuthorsFromDB.FirstOrDefault(author => author.Name.Equals(authorsNameToRemove, StringComparison.OrdinalIgnoreCase))!;
+                Author authorToRemove = Authors.FirstOrDefault(author => author.Name.Equals(authorsNameToRemove, StringComparison.OrdinalIgnoreCase))!;
 
                 if (authorToRemove != null)
                 {
-                    myDataBase.AllAuthorsFromDB.Remove(authorToRemove);
+                    Authors.Remove(authorToRemove);
                     Console.WriteLine($"Author {authorsNameToRemove} removed successfully.");
 
-                    // Serialisera den uppdaterade listan tillbaka till JSON
-                    string updatedJsonString = JsonSerializer.Serialize(myDataBase, new JsonSerializerOptions { WriteIndented = true });
-
-                    // Skriv den uppdaterade JSON till filen
-                    File.WriteAllText("LibraryData.json", updatedJsonString);
-
-                    // Uppdatera interna listor
-                    Authors = myDataBase.AllAuthorsFromDB;
                 }
                 else
                 {

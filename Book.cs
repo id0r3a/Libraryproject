@@ -22,11 +22,5 @@
             ISBN = isbn;
             Reviews = new List<int>();
         }
-        public double GetAverageRating()
-        {
-            return Reviews.Count == 0 ? 0 : Reviews.Average();
-
-
-        }
     }
 }

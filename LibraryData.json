@@ -109,7 +109,7 @@
         5,
         4,
         5,
-        1
+        2
       ]
     }
   ],
@@ -117,49 +117,49 @@
     {
       "Id": 1,
       "Name": "JK Rowling",
-      "Nationality": "British"
+      "Nationality": "England"
 
     },
     {
       "Id": 2,
       "Name": "Astrid Lindgren",
-      "Nationality": "Swedish"
+      "Nationality": "Sweden"
 
     },
     {
       "Id": 3,
       "Name": "Hernan Diaz",
-      "Nationality": "American"
+      "Nationality": "USA"
 
     },
     {
       "Id": 4,
       "Name": "Tahereh Mafi",
-      "Nationality": "American"
+      "Nationality": "USA"
 
     },
     {
       "Id": 5,
       "Name": "Morgan Bridges",
-      "Nationality": "American"
+      "Nationality": "USA"
 
     },
     {
       "Id": 6,
       "Name": "Eric Carle",
-      "Nationality": "American"
+      "Nationality": "USA"
 
     },
     {
       "Id": 7,
       "Name": "William Newell",
-      "Nationality": "British"
+      "Nationality": "England"
 
     },
     {
       "Id": 8,
       "Name": "Rhonda Byrne",
-      "Nationality": "Australian"
+      "Nationality": "Australia"
 
     }
   ]

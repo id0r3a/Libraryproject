@@ -203,17 +203,16 @@ namespace Inlämning_3
                 var averageRating = book.Reviews.Any() ? book.Reviews.Average() : 0;
 
                 Console.WriteLine($"{book.Id}: {book.Title} by {book.Author}, {book.Genre}, {book.YearOfPublication} ISBN: {book.ISBN}, Average Rating: {(book.Reviews.Any() ? averageRating.ToString("0.00") : "No Rates")}");
-
             }
 
             Console.WriteLine("\nAuthors:");
             foreach (var author in Authors)
             {
-                Console.WriteLine($"Id:{author.Id}: {author.Name} ({author.Nationality})");
+                Console.WriteLine($"Id:{author.Id}: {author.Name} from {author.Nationality}");
             }
         }
 
-        //Filtrera böcker
+        //Filtrera böcker enligt genre
         public void FilterBooksByGenre()
         {
             var genres = Books.Select(book => book.Genre).Distinct();
@@ -280,7 +279,7 @@ namespace Inlämning_3
             }
         }
 
-        //Metod för att lägga till betyg till en bok
+        // Metod för att lägga till betyg till en bok
         public void AddRatingToBook()
         {
             Console.Write("Enter the title of the book you want to rate: ");
@@ -293,7 +292,8 @@ namespace Inlämning_3
                 if (int.TryParse(Console.ReadLine(), out int rating) && rating >= 1 && rating <= 5)
                 {
                     bookToRate.Reviews.Add(rating);
-                    Console.WriteLine($"Rating added successfully. New average rating: {bookToRate.GetAverageRating():0.00}");
+                    Console.WriteLine($"Rating added successfully. New average rating: {GetAverageRating(bookToRate):0.00}");
+
                 }
                 else
                 {
@@ -304,6 +304,11 @@ namespace Inlämning_3
             {
                 Console.WriteLine("Book not found.");
             }
+        }
+        public double GetAverageRating(Book book)
+        {
+            return book.Reviews.Count == 0 ? 0 : book.Reviews.Average();
+
         }
 
         //spara data

@@ -73,10 +73,6 @@ namespace Inlämning_3
                 bookToUpdate.ISBN = int.Parse(Console.ReadLine()!);
                 Console.WriteLine("Book details updated successfully.");
 
-                // Serialize the updated list back to JSON
-                string updatedJsonString = JsonSerializer.Serialize(Books, new JsonSerializerOptions { WriteIndented = true });
-                // Write the updated JSON to the file
-                File.WriteAllText("LibraryData.json", updatedJsonString);
             }
             else
             {
@@ -99,10 +95,6 @@ namespace Inlämning_3
                     authorToUpdate.Nationality = Console.ReadLine()!;
                     Console.WriteLine("Author details updated successfully.");
 
-                    // Serialize the updated list back to JSON
-                    string updatedJsonString = JsonSerializer.Serialize(Authors, new JsonSerializerOptions { WriteIndented = true });
-                    // Write the updated JSON to the file
-                    File.WriteAllText("LibraryData.json", updatedJsonString);
                 }
                 else
                 {
@@ -139,12 +131,6 @@ namespace Inlämning_3
                     myDataBase.AllBooksFromDB.Remove(bookToRemove);
                     Console.WriteLine($"Book with Title {booksTitleToRemove} removed successfully.");
 
-                    // Serialisera den uppdaterade listan tillbaka till JSON
-                    string updatedJsonString = JsonSerializer.Serialize(myDataBase, new JsonSerializerOptions { WriteIndented = true });
-
-                    // Skriv den uppdaterade JSON till filen
-                    File.WriteAllText("LibraryData.json", updatedJsonString);
-
                     // Uppdatera interna listor
                     Books = myDataBase.AllBooksFromDB;
                 }
@@ -180,12 +166,6 @@ namespace Inlämning_3
                 {
                     myDataBase.AllAuthorsFromDB.Remove(authorToRemove);
                     Console.WriteLine($"Author {authorsNameToRemove} removed successfully.");
-
-                    // Serialisera den uppdaterade listan tillbaka till JSON
-                    string updatedJsonString = JsonSerializer.Serialize(myDataBase, new JsonSerializerOptions { WriteIndented = true });
-
-                    // Skriv den uppdaterade JSON till filen
-                    File.WriteAllText("LibraryData.json", updatedJsonString);
 
                     // Uppdatera interna listor
                     Authors = myDataBase.AllAuthorsFromDB;

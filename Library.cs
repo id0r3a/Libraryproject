@@ -203,6 +203,7 @@ namespace Inlämning_3
                 var averageRating = book.Reviews.Any() ? book.Reviews.Average() : 0;
 
                 Console.WriteLine($"{book.Id}: {book.Title} by {book.Author}, {book.Genre}, {book.YearOfPublication} ISBN: {book.ISBN}, Average Rating: {(book.Reviews.Any() ? averageRating.ToString("0.00") : "No Rates")}");
+
             }
 
             Console.WriteLine("\nAuthors:");
@@ -312,6 +313,7 @@ namespace Inlämning_3
 
             File.WriteAllText(dataJSONfilPath, updatedDataBase);
         }
+
         public void Pausa()
         {
             Console.WriteLine("Press any key to go back to MENU");

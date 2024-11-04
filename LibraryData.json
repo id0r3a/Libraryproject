@@ -7,7 +7,12 @@
       "Genre": "Fantasy",
       "YearOfPublication": 1997,
       "ISBN": 111,
-      "Reviews": []
+      "Reviews": [
+        2,
+        5,
+        3,
+        3
+      ]
     },
     {
       "Id": 2,
@@ -16,7 +21,12 @@
       "Genre": "Childrens book",
       "YearOfPublication": 1948,
       "ISBN": 222,
-      "Reviews": []
+      "Reviews": [
+        2,
+        1,
+        3,
+        3
+      ]
     },
     {
       "Id": 3,
@@ -25,7 +35,12 @@
       "Genre": "Romantic",
       "YearOfPublication": 2022,
       "ISBN": 333,
-      "Reviews": []
+      "Reviews": [
+        1,
+        1,
+        3,
+        5
+      ]
     },
     {
       "Id": 4,
@@ -34,7 +49,12 @@
       "Genre": "Fantasy",
       "YearOfPublication": 2018,
       "ISBN": 444,
-      "Reviews": []
+      "Reviews": [
+        4,
+        2,
+        1,
+        4
+      ]
     },
     {
       "Id": 5,
@@ -43,7 +63,12 @@
       "Genre": "Romantic",
       "YearOfPublication": 2024,
       "ISBN": 555,
-      "Reviews": []
+      "Reviews": [
+        2,
+        2,
+        4,
+        3
+      ]
     },
     {
       "Id": 6,
@@ -52,7 +77,12 @@
       "Genre": "Childrens book",
       "YearOfPublication": 1997,
       "ISBN": 666,
-      "Reviews": []
+      "Reviews": [
+        3,
+        2,
+        1,
+        1
+      ]
     },
     {
       "Id": 7,
@@ -61,7 +91,12 @@
       "Genre": "Romantic",
       "YearOfPublication": 2015,
       "ISBN": 777,
-      "Reviews": []
+      "Reviews": [
+        2,
+        4,
+        2,
+        5
+      ]
     },
     {
       "Id": 8,
@@ -70,7 +105,12 @@
       "Genre": "Psychology",
       "YearOfPublication": 2006,
       "ISBN": 888,
-      "Reviews": []
+      "Reviews": [
+        5,
+        4,
+        5,
+        1
+      ]
     }
   ],
   "Authors": [

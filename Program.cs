@@ -68,13 +68,11 @@ namespace Inlämning_3
 
                         case "5":
                             library.RemoveBook();
-                            library.SaveData(DataJSONfilePath, myDataBase);
                             library.Pausa();
                             break;
 
                         case "6":
                             library.RemoveAuthor();
-                            library.SaveData(DataJSONfilePath, myDataBase);
                             library.Pausa();
                             break;
 

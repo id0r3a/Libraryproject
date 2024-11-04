@@ -95,10 +95,6 @@ namespace Inlämning_3
                     authorToUpdate.Nationality = Console.ReadLine()!;
                     Console.WriteLine("Author details updated successfully.");
 
-                    // Serialize the updated list back to JSON
-                    string updatedJsonString = JsonSerializer.Serialize(Authors, new JsonSerializerOptions { WriteIndented = true });
-                    // Write the updated JSON to the file
-                    File.WriteAllText("LibraryData.json", updatedJsonString);
                 }
                 else
                 {

@@ -1,6 +1,8 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-using static System.Reflection.Metadata.BlobBuilder;
+﻿using System;
+using System.IO;
+using System.Text.Json;
+using Spectre.Console;
+using Figgle;
 
 namespace Inlämning_3
 {
@@ -8,145 +10,138 @@ namespace Inlämning_3
     {
         static void Main(string[] args)
         {
+            string dataJSONfilePath = "LibraryData.json";
+            string allDataAsJSONType = File.ReadAllText(dataJSONfilePath);
+
+            MyDataBase myDataBase = JsonSerializer.Deserialize<MyDataBase>(allDataAsJSONType)!;
+
+            Library library = new Library
             {
+                Books = myDataBase.AllBooksFromDB,
+                Authors = myDataBase.AllAuthorsFromDB
+            };
 
-                string DataJSONfilePath = "LibraryData.json";
-                string AllDataAsJSONType = File.ReadAllText(DataJSONfilePath);
+            bool keepRunning = true;
 
-                MyDataBase myDataBase = JsonSerializer.Deserialize<MyDataBase>(AllDataAsJSONType)!;
+            // Skriv ut välkomstmeddelande med Figgle och Spectre.Console
+            var title = FiggleFonts.Standard.Render("Dorsas Library");
+            AnsiConsole.Markup("[bold yellow]" + title + "[/]");
 
-                Library library = new Library();
-                library.Books = myDataBase.AllBooksFromDB;
-                library.Authors = myDataBase.AllAuthorsFromDB;
+            while (keepRunning)
+            {
+                AnsiConsole.Markup("[bold cyan]Please choose an option:[/]\n");
+                var userChoice = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .AddChoices("Add new book", "Add new author", "Update book details", "Update author details",
+                                    "Delete book", "Delete author", "Rate a book", "Search and filter books",
+                                    "Sort books", "List all books and authors", "Close the program")
+                );
 
-
-                bool keepRunning = true;
-
-                while (keepRunning)
+                switch (userChoice)
                 {
-                    Console.WriteLine("Welcome to Dorsas Library!");
-                    Console.WriteLine("..........................");
-                    Console.WriteLine("Please choose an option:");
-                    Console.WriteLine("Press 1 to add new book");
-                    Console.WriteLine("Press 2 to add a new author");
-                    Console.WriteLine("Press 3 to update book details");
-                    Console.WriteLine("Press 4 to update author details");
-                    Console.WriteLine("Press 5 to delete book");
-                    Console.WriteLine("Press 6 to delete author");
-                    Console.WriteLine("Press 7 to rate a book");
-                    Console.WriteLine("Press 8 to search and filter books");
-                    Console.WriteLine("Press 9 to sort books");
-                    Console.WriteLine("Press 10 to list all books and authors");
-                    Console.WriteLine("Press 11 to close the program!");
-                    
-                    string userChoice = Console.ReadLine()!;
-                    switch (userChoice)
-                    {
-                        case "1":
-                            library.AddNewBook();
-                            library.SaveData(DataJSONfilePath, myDataBase);
-                            library.Pausa();
-                            break;
+                    case "Add new book":
+                        library.AddNewBook();
+                        library.SaveData(dataJSONfilePath, myDataBase);
+                        ConsoleHelper.Pause();
+                        break;
 
-                        case "2":
-                            library.AddNewAuthor();
-                            library.SaveData(DataJSONfilePath, myDataBase);
-                            library.Pausa();
-                            break;
+                    case "Add new author":
+                        library.AddNewAuthor();
+                        library.SaveData(dataJSONfilePath, myDataBase);
+                        ConsoleHelper.Pause();
+                        break;
 
-                        case "3":
-                            library.UpdateBookDetails();
-                            library.SaveData(DataJSONfilePath, myDataBase);
-                            library.Pausa();
-                            break;
+                    case "Update book details":
+                        library.UpdateBookDetails();
+                        library.SaveData(dataJSONfilePath, myDataBase);
+                        ConsoleHelper.Pause();
+                        break;
 
-                        case "4":
-                            library.UpdateAuthorDetails();
-                            library.SaveData(DataJSONfilePath, myDataBase);
-                            library.Pausa();
-                            break;
+                    case "Update author details":
+                        library.UpdateAuthorDetails();
+                        library.SaveData(dataJSONfilePath, myDataBase);
+                        ConsoleHelper.Pause();
+                        break;
 
-                        case "5":
-                            library.RemoveBook();
-                            library.SaveData(DataJSONfilePath, myDataBase);
-                            library.Pausa();
-                            break;
+                    case "Delete book":
+                        library.RemoveBook();
+                        library.SaveData(dataJSONfilePath, myDataBase);
+                        ConsoleHelper.Pause();
+                        break;
 
-                        case "6":
-                            library.RemoveAuthor();
-                            library.SaveData(DataJSONfilePath, myDataBase);
-                            library.Pausa();
-                            break;
+                    case "Delete author":
+                        library.RemoveAuthor();
+                        library.SaveData(dataJSONfilePath, myDataBase);
+                        ConsoleHelper.Pause();
+                        break;
 
-                        case "7":
-                            library.AddRatingToBook();
-                            library.SaveData(DataJSONfilePath, myDataBase);
-                            library.Pausa();
-                            break;
+                    case "Rate a book":
+                        library.AddRatingToBook();
+                        library.SaveData(dataJSONfilePath, myDataBase);
+                        ConsoleHelper.Pause();
+                        break;
 
-                        case "8":
-                            Console.WriteLine("Choose filter:");
-                            Console.WriteLine("Press (1) to filter books by genre.");
-                            Console.WriteLine("Press (2) to filter books by author.");
-                            Console.WriteLine("Press (3) to filter books by year of publication.");
-                            string filterChoice = Console.ReadLine()!;
+                    case "Search and filter books":
+                        var filterChoice = AnsiConsole.Prompt(
+                            new SelectionPrompt<string>()
+                                .Title("[cyan]Choose filter:[/]")
+                                .AddChoices("Filter by genre", "Filter by author", "Filter by year of publication")
+                        );
 
-                            switch (filterChoice)
-                            {
-                                case "1":
-                                    library.FilterBooksByGenre();
-                                    break;
-                                case "2":
-                                    library.FilterBooksByAuthor();
-                                    break;
-                                case "3":
-                                    library.FilterBooksByPublicationYear();
-                                    break;
-                                default:
-                                    Console.WriteLine("Invalid choice. Please enter a number between 1 and 3.");
-                                    library.SaveData(DataJSONfilePath, myDataBase);
-                                    break;
+                        switch (filterChoice)
+                        {
+                            case "Filter by genre":
+                                library.FilterBooksByGenre();
+                                break;
+                            case "Filter by author":
+                                library.FilterBooksByAuthor();
+                                break;
+                            case "Filter by year of publication":
+                                library.FilterBooksByPublicationYear();
+                                break;
+                            default:
+                                AnsiConsole.Markup("[red]Invalid choice. Please enter a number between 1 and 3.[/]\n");
+                                break;
+                        }
+                        ConsoleHelper.Pause();
+                        break;
 
-                            }
-                            library.Pausa();
-                            break;
+                    case "Sort books":
+                        var sortChoice = AnsiConsole.Prompt(
+                            new SelectionPrompt<string>()
+                                .Title("[cyan]Sort by:[/]")
+                                .AddChoices("Sort by publication year", "Sort by title")
+                        );
 
-                        case "9":
-                            Console.WriteLine("Sort by:");
-                            Console.WriteLine("Press (1) to sort books by publication year.");
-                            Console.WriteLine("Press (2) to sort books by title.");
-                            string sortChoice = Console.ReadLine()!;
+                        switch (sortChoice)
+                        {
+                            case "Sort by publication year":
+                                library.SortBooksByPublicationYear();
+                                break;
+                            case "Sort by title":
+                                library.SortBooksByTitle();
+                                break;
+                        }
+                        library.SaveData(dataJSONfilePath, myDataBase);
+                        ConsoleHelper.Pause();
+                        break;
 
-                            switch (sortChoice)
-                            {
-                                case "1":
-                                    library.FilterBooksByPublicationYear();
-                                    break;
-                                case "2":
-                                    library.SortBooksByTitle();
-                                    library.SaveData(DataJSONfilePath, myDataBase);
-                                    break;
-                            }
-                            library.Pausa();
-                            break;
+                    case "List all books and authors":
+                        library.ListAllBooks();
+                        library.ListAllAuthors();
+                        library.SaveData(dataJSONfilePath, myDataBase);
+                        ConsoleHelper.Pause();
+                        break;
 
-                        case "10":
-                            library.ListOutAllBooksAndAuthors();
-                            library.SaveData(DataJSONfilePath, myDataBase);
-                            library.Pausa();
-                            break;
-                        
+                    case "Close the program":
+                        AnsiConsole.Markup("[bold red]Program closes[/]\n");
+                        keepRunning = false;
+                        break;
 
-                        case "11":
-                            Console.WriteLine("Program closes");
-                            keepRunning = false;
-                            break;
-
-                        default:
-                            Console.WriteLine("Invalid choice, please try again.");
-                            break;
-                    }
-                }        
+                    default:
+                        AnsiConsole.Markup("[red]Invalid choice, please try again.[/]\n");
+                        break;
+                }
             }
         }
     }

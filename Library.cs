@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Spectre.Console;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -14,10 +15,10 @@ namespace Inlämning_3
         // Lägg till en ny bok
         public void AddNewBook()
         {
-            
+
             Console.WriteLine("Please enter book´s information...");
             Console.Write("Enter book ID: ");
-            int bookToAddNewID = int.Parse(Console.ReadLine()!); 
+            int bookToAddNewID = int.Parse(Console.ReadLine()!);
             Console.Write("Enter book´s title: ");
             string bookToAddNewTitle = Console.ReadLine()!;
             Console.Write("Enter book´s author: ");
@@ -28,7 +29,7 @@ namespace Inlämning_3
             int bookToAddNewYear = int.Parse(Console.ReadLine()!);
             Console.Write("Enter book´s ISBN: ");
             int bookToAddNewISBN = int.Parse(Console.ReadLine()!);
-           
+
 
             Book newBok = new Book(bookToAddNewID, bookToAddNewTitle, bookToAddNewAuthor, bookToAddNewGenre, bookToAddNewISBN, bookToAddNewISBN);
             Books.Add(newBok);
@@ -50,7 +51,7 @@ namespace Inlämning_3
             Author newAuthor = new Author(authorToAddId, authorToAddName, authorToAddNationality);
             Authors.Add(newAuthor);
             Console.WriteLine($"{authorToAddName} added to librarys´ authors");
-     
+
         }
 
         // Uppdatera bok
@@ -165,24 +166,64 @@ namespace Inlämning_3
         }
 
         // Lista ut alla böcker och författare
-        public void ListOutAllBooksAndAuthors()
-        {
-            Console.WriteLine("\nBooks:");
-            foreach (var book in Books)
+    
+            // Metod för att lista alla böcker
+            public void ListAllBooks()
             {
-                var averageRating = book.Reviews.Any() ? book.Reviews.Average() : 0;
-                Console.WriteLine($"{book.Id}: {book.Title} by {book.Author}, {book.Genre}, {book.YearOfPublication} ISBN: {book.ISBN}, Average Rating: {(book.Reviews.Any() ? averageRating.ToString("0.00") : "No Ratings")}");
+                var table = new Table();
+                table.AddColumn("ID");
+                table.AddColumn("Title");
+                table.AddColumn("Author");
+                table.AddColumn("Genre");
+                table.AddColumn("Year of Publication");
+                table.AddColumn("ISBN");
+                table.AddColumn("Average Rating");
+
+                foreach (var book in Books)
+                {
+                    var averageRating = book.Reviews.Any() ? book.Reviews.Average().ToString("0.00") : "No Ratings";
+                    table.AddRow(book.Id.ToString(), book.Title, book.Author, book.Genre, book.YearOfPublication.ToString(), book.ISBN.ToString(), averageRating);
+                }
+
+                AnsiConsole.Write(table);
             }
 
-            Console.WriteLine("\nAuthors:");
-            foreach (var author in Authors)
+            // Metod för att lista alla författare
+            public void ListAllAuthors()
             {
-                Console.WriteLine($"Id:{author.Id}: {author.Name} from {author.Nationality}");
-            }
-        }
+                var table = new Table();
+                table.AddColumn("ID");
+                table.AddColumn("Name");
+                table.AddColumn("Nationality");
 
-        //Filtrera böcker enligt genre
-        public void FilterBooksByGenre()
+                foreach (var author in Authors)
+                {
+                    table.AddRow(author.Id.ToString(), author.Name, author.Nationality);
+                }
+
+                AnsiConsole.Write(table);
+            }
+        
+    
+
+    //public void ListOutAllBooksAndAuthors()
+    //{
+    //    Console.WriteLine("\nBooks:");
+    //    foreach (var book in Books)
+    //    {
+    //        var averageRating = book.Reviews.Any() ? book.Reviews.Average() : 0;
+    //        Console.WriteLine($"{book.Id}: {book.Title} by {book.Author}, {book.Genre}, {book.YearOfPublication} ISBN: {book.ISBN}, Average Rating: {(book.Reviews.Any() ? averageRating.ToString("0.00") : "No Ratings")}");
+    //    }
+
+    //    Console.WriteLine("\nAuthors:");
+    //    foreach (var author in Authors)
+    //    {
+    //        Console.WriteLine($"Id:{author.Id}: {author.Name} from {author.Nationality}");
+    //    }
+    //}
+
+    //Filtrera böcker enligt genre
+    public void FilterBooksByGenre()
         {
             var genres = Books.Select(book => book.Genre).Distinct();
             foreach (var genre in genres)
@@ -286,13 +327,6 @@ namespace Inlämning_3
             string updatedDataBase = JsonSerializer.Serialize(myDataBase, new JsonSerializerOptions { WriteIndented = true });
 
             File.WriteAllText(dataJSONfilPath, updatedDataBase);
-        }
-
-        public void Pausa()
-        {
-            Console.WriteLine("Press any key to go back to MENU");
-            Console.ReadKey();
-            Console.Clear();
         }
     }
 }
